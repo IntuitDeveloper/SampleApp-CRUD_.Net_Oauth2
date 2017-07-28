@@ -1,5 +1,5 @@
 # SampleApp-CRUD-.Net for Ouath2 apps
-CRUD sample for V3 .Net SDK (This sample app has NO UI. Please run it in debug mode after enabling logging on Test class to understand how the api calls are made.)
+CRUD sample for V3 .Net SDK (This sample app has NO UI to show QBO APi calls request or response. It has UI for just the Oauth flow and then please run it in debug mode after enabling logging on Test class to understand how the api calls are made.)
 
 
 <p>Welcome to the Intuit Developer's .Net Sample App for CRUD operations.</p>

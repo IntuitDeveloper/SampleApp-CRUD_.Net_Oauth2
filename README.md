@@ -28,7 +28,7 @@ CRUD sample for V3 .Net SDK (This sample app has NO UI to show QBO APi calls req
 
 In order to successfully run this sample app you need a few things:
 
-1. .Net Framework 4.6.1, VS 2015
+1. .Net Framework 4.6.1
 2. A [developer.intuit.com](http://developer.intuit.com) account
 3. An app on [developer.intuit.com](http://developer.intuit.com) created after Jul 17th, 2017 as only those accounts have Ouath2 apps and the associated client id, client secret and redirect url mapping to what you have in the web.config of this app (http://localhost:49372/Default.aspx)
 4. One sandbox company, connect the company with your app and generate the oauth tokens.

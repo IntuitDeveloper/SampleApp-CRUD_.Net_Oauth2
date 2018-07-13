@@ -982,9 +982,6 @@ namespace SampleApp_CRUD_DotNet
 
         #endregion
 
-
-
-
     }
 
     /// <summary>

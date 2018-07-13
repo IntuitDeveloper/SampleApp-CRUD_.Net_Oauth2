@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SampleApp_CRUD_DotNet{
+namespace SampleApp_CRUD_DotNet {
     
     
     public partial class Default {
@@ -31,13 +31,13 @@ namespace SampleApp_CRUD_DotNet{
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl connect;
         
         /// <summary>
-        /// btnOpenId control.
+        /// btnOAuth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnOpenId;
+        protected global::System.Web.UI.WebControls.ImageButton btnOAuth;
         
         /// <summary>
         /// revoke control.
@@ -64,7 +64,7 @@ namespace SampleApp_CRUD_DotNet{
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnQBOAPICall;
+        protected global::System.Web.UI.WebControls.Button btnQBOAPICall;
         
         /// <summary>
         /// lblQBOCall control.
@@ -74,14 +74,5 @@ namespace SampleApp_CRUD_DotNet{
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblQBOCall;
-        
-        /// <summary>
-        /// btnRevoke control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnRevoke;
     }
 }

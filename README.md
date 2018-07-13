@@ -24,8 +24,6 @@ CRUD sample for V3 .Net SDK (This sample app has NO UI to show QBO APi calls req
 * [First Use Instructions](#first-use-instructions)
 * [Running the code](#running-the-code)
 
-
-
 ## Requirements
 
 In order to successfully run this sample app you need a few things:
@@ -33,14 +31,14 @@ In order to successfully run this sample app you need a few things:
 1. .Net Framework 4.6.1
 2. A [developer.intuit.com](http://developer.intuit.com) account
 3. An app on [developer.intuit.com](http://developer.intuit.com) created after Jul 17th, 2017 as only those accounts have Ouath2 apps and the associated client id, client secret and redirect url mapping to what you have in the web.config of this app (http://localhost:49372/Default.aspx)
-4. One sandbox company, connect the company with your app and generate the oauth tokens.
+4. One sandbox company, connect the company with your app and generate the OAuth tokens.
 5. Update QuickBooks .Net SDK using Nuget (https://www.nuget.org/packages/IppDotNetSdkForQuickBooksApiV3/) to the latest version.
 
 ## First Use Instructions
 
 1. Clone the GitHub repo to your computer
 2. Update Nuget Package for .Net to the latest version.
-3. Fill in the web.config file values (cient id, client secret, redirect url and log folder) by copying over from the keys section for your app.
+3. Fill in the web.config file values (cient id, client secret, redirect url, app environment and log folder) by copying over from the keys section for your app.
 tab->Set time duration in seconds for 180 days and get the access token and secret for your app and company by right clicking on the page and doing a view source. 
 4. Build and run.
 
@@ -55,6 +53,7 @@ Notes:
 
 1. The sample code has been implemented for US locale company, certain fields may not be applicable for other locales or minor version. Care should be taken to handle such scenarios separately.
 2. Before running AttachableUpload sample, update the path of the pdf that you wish to upload to point to your local directory. 
+3. This app uses new OAuth2Client. If you want to refer the other way to use standalone OAuth2 clients, download v1.0 from Release tab
 
 [ss1]: https://help.developer.intuit.com/s/samplefeedback?cid=9010&repoName=SampleApp-CRUD-.Net_Oauth2
 

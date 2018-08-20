@@ -243,8 +243,44 @@ namespace SampleApp_CRUD_DotNet
 
         #endregion
 
-       
 
+
+        #endregion
+
+        #region AST enabled company ->Invoice
+        #region Sync Methods
+        #region  Add Operations
+
+
+        public void ASTInvoiceAddTestUsingoAuth(ServiceContext qboContextoAuth)
+        {
+            //Creating the Invoice for Add
+            Invoice invoice = QBOHelper.CreateInvoice(qboContextoAuth);
+            //Adding the Invoice
+            Invoice added = Helper.Add<Invoice>(qboContextoAuth, invoice);
+
+        }
+
+        #endregion
+
+        #region   Update Operations
+
+
+        public void ASTInvoiceUpdateTestUsingoAuth(ServiceContext qboContextoAuth)
+        {
+            //Creating the Invoice for Adding
+            Invoice invoice = QBOHelper.CreateASTInvoice(qboContextoAuth);
+            //Adding the Invoice
+            Invoice added = Helper.Add<Invoice>(qboContextoAuth, invoice);
+            //Change the data of added entity
+            Invoice changed = QBOHelper.UpdateASTInvoice(qboContextoAuth, added);//To override AST invoice tax using TotalTax
+            //Update the returned entity data
+            Invoice updated = Helper.Update<Invoice>(qboContextoAuth, changed);//Verify the updated Invoice
+
+        }
+        #endregion
+
+        #endregion
         #endregion
     }
 }

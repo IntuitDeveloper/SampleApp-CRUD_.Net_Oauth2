@@ -22,6 +22,135 @@ namespace SampleApp_CRUD_DotNet
 
 
 
+        internal static Invoice CreateASTInvoice(ServiceContext context)
+        {
+            //US Invoice
+            Customer customer = Helper.FindOrAdd<Customer>(context, new Customer());
+            TaxCode taxCode = Helper.FindOrAdd<TaxCode>(context, new TaxCode());
+            Account account = Helper.FindOrAddAccount(context, AccountTypeEnum.AccountsReceivable, AccountClassificationEnum.Liability);
+            Item item = Helper.FindOrAdd<Item>(context, new Item());
+
+            Invoice invoice = new Invoice();
+           
+
+
+            invoice.CustomerRef = new ReferenceType()
+            {
+                name = customer.DisplayName,
+                Value = customer.Id
+            };
+
+            invoice.DueDate = DateTime.UtcNow.Date;
+            invoice.DueDateSpecified = true;
+
+
+            invoice.TotalAmt = new Decimal(100.00);
+            invoice.TotalAmtSpecified = true;
+
+            invoice.ApplyTaxAfterDiscount = false;
+            invoice.ApplyTaxAfterDiscountSpecified = true;
+
+            invoice.PrintStatus = PrintStatusEnum.NotSet;
+            invoice.PrintStatusSpecified = true;
+            invoice.EmailStatus = EmailStatusEnum.NotSet;
+            invoice.EmailStatusSpecified = true;
+
+            EmailAddress billEmail = new EmailAddress();
+            billEmail.Address = @"abc@gmail.com";
+            billEmail.Default = true;
+            billEmail.DefaultSpecified = true;
+            billEmail.Tag = "Tag";
+            invoice.BillEmail = billEmail;
+
+            EmailAddress billEmailcc = new EmailAddress();
+            billEmailcc.Address = @"def@gmail.com";
+            billEmailcc.Default = true;
+            billEmailcc.DefaultSpecified = true;
+            billEmailcc.Tag = "Tag";
+            invoice.BillEmailCc = billEmailcc;
+
+            EmailAddress billEmailbcc = new EmailAddress();
+            billEmailbcc.Address = @"xyz@gmail.com";
+            billEmailbcc.Default = true;
+            billEmailbcc.DefaultSpecified = true;
+            billEmailbcc.Tag = "Tag";
+            invoice.BillEmailBcc = billEmailbcc;
+
+
+            invoice.Balance = new Decimal(100.00);
+            invoice.BalanceSpecified = true;
+
+            invoice.TxnDate = DateTime.UtcNow.Date;
+            invoice.TxnDateSpecified = true;
+
+
+            List<Line> lineList = new List<Line>();
+            
+
+            Line line1 = new Line();
+            line1.Description = "Sales Line";
+            line1.Amount = new Decimal(100.00);
+            line1.AmountSpecified = true;
+
+            
+
+
+            line1.DetailType = LineDetailTypeEnum.SalesItemLineDetail;
+            line1.DetailTypeSpecified = true;
+            //Line Sales Item Line Detail
+            SalesItemLineDetail lineSalesItemLineDetail = new SalesItemLineDetail();
+            //Line Sales Item Line Detail - ItemRef
+            lineSalesItemLineDetail.ItemRef = new ReferenceType()
+            {
+                name = item.Name,
+                Value = item.Id
+            };
+            //Line Sales Item Line Detail - UnitPrice
+            lineSalesItemLineDetail.AnyIntuitObject = 10m;
+            lineSalesItemLineDetail.ItemElementName = ItemChoiceType.UnitPrice;
+            //Line Sales Item Line Detail - Qty
+            lineSalesItemLineDetail.Qty = 10;
+            lineSalesItemLineDetail.QtySpecified = true;
+            //Line Sales Item Line Detail - TaxCodeRef
+            //For US companies, this can be 'TAX' or 'NON'
+            lineSalesItemLineDetail.TaxCodeRef = new ReferenceType()
+            {
+                Value = "TAX"
+            };
+
+            line1.AnyIntuitObject = lineSalesItemLineDetail;
+
+            lineList.Add(line1);
+            invoice.Line = lineList.ToArray();
+            invoice.TxnTaxDetail = new TxnTaxDetail()
+            {
+                //TotalTax = Convert.ToDecimal(10),
+                //TotalTaxSpecified = true,
+                TxnTaxCodeRef = new ReferenceType()
+                { Value = taxCode.Id}
+                
+            };
+
+
+
+
+            return invoice;
+
+
+        }
+
+
+
+        internal static Invoice UpdateASTInvoice(ServiceContext context, Invoice invoice)
+        {
+            //update the properties of entity
+            invoice.DocNumber = "updated" + Helper.GetGuid().Substring(0, 3);
+            invoice.TxnTaxDetail.TotalTax = Convert.ToDecimal(10);
+            invoice.TxnTaxDetail.TotalTaxSpecified = true;
+
+            return invoice;
+        }
+
 
         internal static Invoice CreateInvoice(ServiceContext context)
         {

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Intuit.Ipp.Core;
+using Intuit.Ipp.Data;
 
 namespace SampleApp_CRUD_DotNet
 {
@@ -12,7 +13,7 @@ namespace SampleApp_CRUD_DotNet
     {
 
 
-    public static void allqbocalls(ServiceContext qboContextoAuth)
+        public static void allqbocalls(ServiceContext qboContextoAuth)
         {
             #region all calls
             //For each request use a unique RequestId so that server diff between diff requests and does not creates duplicates
@@ -1887,5 +1888,63 @@ namespace SampleApp_CRUD_DotNet
 
             #endregion 
         }
+
+
+        #region AST enabled company's Invoice
+        #region Step-1 verify AST enabled company using Preference API call. AST or automated sales tax is enabled only for US companies
+
+        public static void automatedSalestaxCheckPreferenceCall(ServiceContext qboContextoAuth)
+        {
+            PreferencesCRUD preferencesTest = new PreferencesCRUD();
+
+
+            //Query solves same purpose as ReadAll
+            qboContextoAuth.RequestId = Helper.GetGuid();
+            Preferences pref= preferencesTest.PreferencesQueryASTCheckUsingoAuth(qboContextoAuth);
+            Nullable<bool> IsCompanyASTEnabled = pref.TaxPrefs.PartnerTaxEnabled;
+            if (IsCompanyASTEnabled.HasValue == true)//Company is AST enabled
+            {
+                if (IsCompanyASTEnabled == true)//Company has sales tax set up
+                {
+                    //Create AST enabled Invoice
+                    automatedSalestaxEnabledInvoiceCall(qboContextoAuth);
+                }
+                else if (IsCompanyASTEnabled == false)//Company does not have sales tax set up
+                {
+                    //Note: Ask customer to enable sales tax in QBO company file.
+                }
+            }
+            else//Company is not AST enabled as IsCompanyASTEnabled is null
+            {
+
+            }
+        }
+        #endregion
+
+        #region Step-2 based on the boolean value of True, create Invoice with automated sales tax(AST)
+        public static void automatedSalestaxEnabledInvoiceCall(ServiceContext qboContextoAuth)
+        {
+            
+            
+
+            InvoiceCRUD invoiceTest = new InvoiceCRUD();
+
+            qboContextoAuth.RequestId = Helper.GetGuid();
+            invoiceTest.ASTInvoiceAddTestUsingoAuth(qboContextoAuth);
+
+           
+
+            //Update
+            qboContextoAuth.RequestId = Helper.GetGuid();
+            invoiceTest.ASTInvoiceUpdateTestUsingoAuth(qboContextoAuth);
+
+            
+
+            
+            
+        }
+        #endregion
+
+        #endregion
     }
 }

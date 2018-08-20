@@ -109,9 +109,14 @@ namespace SampleApp_CRUD_DotNet
             }
         }
 
-        protected async void btnQBOAPICall_Click(object sender, EventArgs e)
+        protected async void BtnQBOAPICall_Click(object sender, EventArgs e)
         {
-            await qboApiCall();
+            await qboApiCall("All");
+        }
+
+        protected async void BtnASTInvoiceCall_Click(object sender, EventArgs e)
+        {
+            await qboApiCall("ASTInvoice");
         }
         #endregion
 
@@ -141,20 +146,36 @@ namespace SampleApp_CRUD_DotNet
         /// <summary>
         /// Test QBO api call
         /// </summary>
-        public async Task qboApiCall()
+        public async Task qboApiCall(string callType)
         {
             try
             {
                 if ((dictionary.ContainsKey("accessToken")) && (dictionary.ContainsKey("accessToken")) && (dictionary.ContainsKey("realmId")))
                 {
-                    output("Making QBO API Call.");
+                    
+                    
                     QBOServiceInitializer initialize = new QBOServiceInitializer(dictionary["accessToken"], dictionary["refreshToken"], dictionary["realmId"]);
                     ServiceContext servicecontext = initialize.InitializeQBOServiceContextUsingoAuth();
-                    TestQBOCalls.allqbocalls(servicecontext);
 
-                    output("QBO calls successful.");
-                    lblQBOCall.Visible = true;
-                    lblQBOCall.Text = "QBO Call successful";
+                    if (callType == "All")
+                    {
+                        output("Making QBO API Call.");
+                        TestQBOCalls.allqbocalls(servicecontext);
+                        output("QBO calls successful.");
+                        lblQBOCall.Visible = true;
+                        lblQBOCall.Text = "QBO Call successful";
+                    }
+                    else
+                    {
+                        output("Making AST Invoice API Call.");
+                        TestQBOCalls.automatedSalestaxEnabledInvoiceCall(servicecontext);
+                        output("AST Invoice calls successful.");
+                        lblQBOCall.Visible = true;
+                        lblQBOCall.Text = "AST Invoice Calls successful";
+
+                    }
+
+                    
                 }
             }
             catch (IdsException ex)
@@ -168,7 +189,7 @@ namespace SampleApp_CRUD_DotNet
                     {
                         dictionary["accessToken"] = tokenResp.AccessToken;
                         dictionary["refreshToken"] = tokenResp.RefreshToken;
-                        await qboApiCall();
+                        await qboApiCall(callType);
                     }
                     else
                     {

@@ -68,6 +68,7 @@ namespace SampleApp_CRUD_DotNet
 
         #endregion
 
+
         #endregion
 
 
@@ -112,7 +113,25 @@ namespace SampleApp_CRUD_DotNet
 
         #endregion
 
-        
+
+
+        #endregion
+
+        #region AST value read using Preference API
+        #region  Query
+
+
+        public Preferences PreferencesQueryASTCheckUsingoAuth(ServiceContext qboContextoAuth)
+        {
+            //Make sure minorversion=3 or more is used ServiceContext object
+            QueryService<Preferences> entityQuery = new QueryService<Preferences>(qboContextoAuth);
+            List<Preferences> prefList = entityQuery.ExecuteIdsQuery("SELECT * FROM Preferences").ToList<Preferences>();
+           
+            return prefList[0];
+           
+        }
+
+        #endregion
 
         #endregion
     }

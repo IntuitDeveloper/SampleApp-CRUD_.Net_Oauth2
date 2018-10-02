@@ -34,7 +34,6 @@ namespace SampleApp_CRUD_DotNet
             //When you download fiddler> open it->just go to Tools->Fiddler Option->Enable(Tick Mark) Capture HTTPS connects->Enable Decrypt Https trafficThat is it.No other setting needs to be done.Dotnet localhost is by default captured in fiddler.So, after you enabled https traffic in fiddler.Just run your code.(Fiddler should be open)You will see request response getting logged in Fiddler.
             //You should 'decode the raw request body' by clicking on the yellow bar in fiddle.Then go to File menu on top->Save all session-> Save the fiddler session. A.saz file is created.Zip that.saz file and attach to this ticket
 
-
             #region DataService and QueryService tests
 
             #region Name list entities sample tests
@@ -1852,6 +1851,11 @@ namespace SampleApp_CRUD_DotNet
             #endregion
 
 
+            #endregion
+
+            #region Entitlements tests
+            SampleApp_CRUD_.Net.Entitlements entitlements = new SampleApp_CRUD_.Net.Entitlements();
+            EntitlementsResponse respones = entitlements.EntitlementsGetSync(qboContextoAuth, "https://sandbox-quickbooks.api.intuit.com/manage");
             #endregion
 
             #endregion

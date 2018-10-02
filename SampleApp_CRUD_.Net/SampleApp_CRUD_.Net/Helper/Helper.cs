@@ -10,6 +10,7 @@ using Intuit.Ipp.DataService;
 using Intuit.Ipp.QueryFilter;
 using Intuit.Ipp.Data;
 using Intuit.Ipp.ReportService;
+using Intuit.Ipp.EntitlementService;
 
 namespace SampleApp_CRUD_DotNet
 {
@@ -230,6 +231,59 @@ namespace SampleApp_CRUD_DotNet
 
        
             return actual;
+
+        }
+
+        internal static EntitlementsResponse GetEntitlementAsync(ServiceContext context, string baseUrl)
+        {
+            //Initializing the Dataservice object with ServiceContext
+            EntitlementService service = new EntitlementService(context);
+
+            IdsException exp = null;
+            Boolean entitlementReturned = false;
+            EntitlementsResponse entitlements = null;
+
+            // Used to signal the waiting test thread that a async operation have completed.    
+            ManualResetEvent manualEvent = new ManualResetEvent(false);
+
+            // Async callback events are anonomous and are in the same scope as the test code,    
+            // and therefore have access to the manualEvent variable.    
+            service.OnGetEntilementAsyncCompleted += (sender, e) =>
+            {
+                manualEvent.Set();
+                if (e.Error != null)
+                {
+                    exp = e.Error;
+                }
+                if (exp == null)
+                {
+                    if (e.EntitlementsResponse != null)
+                    {
+                        entitlementReturned = true;
+                        entitlements = e.EntitlementsResponse;
+                    }
+                }
+            };
+
+            // Call the service method
+            service.GetEntitlementsAsync(baseUrl);
+
+            manualEvent.WaitOne(30000, false); Thread.Sleep(10000);
+
+            if (exp != null)
+            {
+                throw exp;
+            }
+
+            // Check if we completed the async call   
+            if (!entitlementReturned)
+            {
+                //return null
+            }
+
+            // Set the event to non-signaled before making next async call.    
+            manualEvent.Reset();
+            return entitlements;
 
         }
 

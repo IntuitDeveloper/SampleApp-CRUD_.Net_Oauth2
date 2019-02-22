@@ -417,7 +417,21 @@ namespace SampleApp_CRUD_DotNet
             salesReceipt.DocNumber = "1003";
             salesReceipt.TxnDate = DateTime.UtcNow.Date;
             salesReceipt.TxnDateSpecified = true;
+
             
+            //CreditCardPayment ccp = new CreditCardPayment();
+            //CreditChargeInfo ccinfo = new CreditChargeInfo();
+            //ccinfo.ProcessPayment = true;
+            //ccinfo.ProcessPaymentSpecified = true;
+            
+            //ccp.CreditChargeInfo = ccinfo;
+            //CreditChargeResponse ccresponse = new CreditChargeResponse();
+            //ccresponse.CCTransId = "234";
+            //ccp.CreditChargeResponse = ccresponse;
+            //salesReceipt.AnyIntuitObject = ccp;
+            //salesReceipt.TxnSource = "IntuitPayment";
+
+
 
             List<Line> lineList = new List<Line>();
             Line line = new Line();

@@ -122,6 +122,7 @@ namespace SampleApp_CRUD_DotNet
 
             lineList.Add(line1);
             invoice.Line = lineList.ToArray();
+          
             invoice.TxnTaxDetail = new TxnTaxDetail()
             {
                 //TotalTax = Convert.ToDecimal(10),
@@ -130,11 +131,52 @@ namespace SampleApp_CRUD_DotNet
                 { Value = taxCode.Id}
                 
             };
+        //    invoice.TxnTaxDetail = new TxnTaxDetail();
+            
+        //    var taxLine = new List<Line>();
+        //    Line l1 = new Line();
+        //    l1.Amount = 23;
+        //    l1.AmountSpecified = true;
+        //    l1.DetailType = LineDetailTypeEnum.TaxLineDetail;
+        //    l1.DetailTypeSpecified = true;
+        //    l1.AnyIntuitObject = new TaxLineDetail()
+        //    {
+        //        TaxRateRef = new ReferenceType { Value = "4" },
+        //        NetAmountTaxable = 23,
+        //        NetAmountTaxableSpecified = true,
+        //        TaxPercent = 5,
+        //        TaxPercentSpecified = true,
+        //        PercentBased = true,
+        //        PercentBasedSpecified = true
+
+
+        //    };
+        //    taxLine.Add(l1);
+
+        //    Line l2 = new Line();
+        //    l2.Amount = 23;
+        //    l2.AmountSpecified = true;
+        //    l2.DetailType = LineDetailTypeEnum.TaxLineDetail;
+        //    l2.DetailTypeSpecified = true;
+        //    l2.AnyIntuitObject = new TaxLineDetail()
+        //    {
+        //        TaxRateRef = new ReferenceType { Value = "4" },
+        //        NetAmountTaxable = 23,
+        //        NetAmountTaxableSpecified = true,
+        //        TaxPercent = 5,
+        //        TaxPercentSpecified = true,
+        //        PercentBased = true,
+        //        PercentBasedSpecified = true
+
+
+        //    };
+        //    taxLine.Add(l2);
 
 
 
 
-            return invoice;
+        //    invoice.TxnTaxDetail.TaxLine = taxLine.ToArray();
+        return invoice;
 
 
         }

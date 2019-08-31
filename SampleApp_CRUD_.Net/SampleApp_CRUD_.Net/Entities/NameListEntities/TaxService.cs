@@ -53,7 +53,7 @@ namespace SampleApp_CRUD_DotNet
 
             taxCodetobeAdded.TaxRateDetails = lstTaxRate.ToArray();
 
-            Intuit.Ipp.Data.TaxService taxCodeAdded = taxSvc.AddTaxCode(taxCodetobeAdded);
+            TaxService taxCodeAdded = taxSvc.AddTaxCode(taxCodetobeAdded);
            
         }
 

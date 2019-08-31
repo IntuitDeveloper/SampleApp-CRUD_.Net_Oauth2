@@ -1,0 +1,19 @@
+dist: xenial
+
+sudo: required
+
+language: csharp
+
+mono: none
+
+dotnet: 2.0.0
+
+solution: Intuit.Ipp.Test.sln
+
+script:
+- cd SampleApp_CRUD_.Net\Intuit.Ipp.Test
+
+- dotnet restore
+- dotnet build
+ 
+- dotnet test

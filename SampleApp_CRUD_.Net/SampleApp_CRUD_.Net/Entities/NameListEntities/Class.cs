@@ -115,7 +115,8 @@ namespace SampleApp_CRUD_DotNet
 
         #region  Batch
 
-         
+       
+
         public void ClassBatchUsingoAuth(ServiceContext qboContextoAuth)
         {
             Dictionary<OperationEnum, object> batchEntries = new Dictionary<OperationEnum, object>();

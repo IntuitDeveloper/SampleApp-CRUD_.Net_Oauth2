@@ -11,7 +11,7 @@ dotnet: 2.0.0
 solution: Intuit.Ipp.Test.sln
 
 script:
-- cd SampleApp_CRUD_.Net\Intuit.Ipp.Test
+- cd SampleApp_CRUD_.Net/Intuit.Ipp.Test
 
 - dotnet restore
 - dotnet build

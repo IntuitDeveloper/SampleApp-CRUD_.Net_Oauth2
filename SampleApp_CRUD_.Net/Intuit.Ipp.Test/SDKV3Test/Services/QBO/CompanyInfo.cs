@@ -9,10 +9,7 @@ using Intuit.Ipp.Security;
 using Intuit.Ipp.Exception;
 using System.Threading;
 using Intuit.Ipp.QueryFilter;
-using Serilog;
-using Serilog.Sinks;
-using Serilog.Core;
-using Serilog.Events;
+
 
 using System.Collections.ObjectModel;
 using Intuit.Ipp.DataService;
@@ -23,17 +20,15 @@ namespace Intuit.Ipp.Test.Services.QBO
     public class CompanyInfoTest
     {
         ServiceContext qboContextoAuth = null;
-        Logger log;
+        
         [TestInitialize]
         public void MyTestInitializer()
         {
-            log = new LoggerConfiguration()
-    .WriteTo.Trace()
-    .CreateLogger();
+            
             qboContextoAuth = Initializer.InitializeQBOServiceContextUsingoAuth();
             //qboContextoAuth.IppConfiguration.Logger.RequestLog.EnableRequestResponseLogging = true;
             //qboContextoAuth.IppConfiguration.Logger.RequestLog.ServiceRequestLoggingLocation = @"C:\IdsLogs";
-            log.Write(LogEventLevel.Information, qboContextoAuth.BaseUrl);
+            
             
         }
 

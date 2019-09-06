@@ -16,11 +16,14 @@ using Microsoft.Extensions.Configuration;
 using Intuit.Ipp.Core.Configuration;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Serilog.Events;
 
 namespace Intuit.Ipp.Test
 {
     public class Initializer
     {
+
+        
 
         static OAuth2Client oauthClient = null;
         public static Dictionary<string, string> tokenDict = new Dictionary<string, string>();
@@ -30,6 +33,7 @@ namespace Intuit.Ipp.Test
         static IConfigurationRoot builder;
         public Initializer(string path)
         {
+            
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             //AuthorizationKeysQBO.tokenFilePath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))), "TokenStore.json");
 
@@ -82,17 +86,28 @@ namespace Intuit.Ipp.Test
 
         internal static ServiceContext InitializeQBOServiceContextUsingoAuth()
         {
-            if (counter==0)
+            
+
+            if (counter == 0)
+            {
                 //if(tokenDict.Count == 0)
                 Initialize();
+                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "Inside1");
+                SeriLogger.log.Information("Inside1usingInfolog");
+            }
+
             else
             {
+                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "Inside2");
                 //Load the second json file
                 FileInfo fileinfo = new FileInfo(AuthorizationKeysQBO.tokenFilePath);
                 string jsonFile = File.ReadAllText(fileinfo.FullName);
                 var jObj = JObject.Parse(jsonFile);
-                AuthorizationKeysQBO.accessTokenQBO= jObj["Oauth2Keys"]["AccessToken"].ToString();
+                AuthorizationKeysQBO.accessTokenQBO = jObj["Oauth2Keys"]["AccessToken"].ToString();
                 AuthorizationKeysQBO.refreshTokenQBO = jObj["Oauth2Keys"]["RefreshToken"].ToString();
+                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "AuthorizationKeysQBO.accessTokenQBO"+ AuthorizationKeysQBO.accessTokenQBO);
+                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "AuthorizationKeysQBO.refreshTokenQBO" + AuthorizationKeysQBO.refreshTokenQBO);
+
             }
 
             ServiceContext context = null;
@@ -102,6 +117,7 @@ namespace Intuit.Ipp.Test
 
                 reqValidator = new OAuth2RequestValidator(AuthorizationKeysQBO.accessTokenQBO);
                 context = new ServiceContext(AuthorizationKeysQBO.realmIdIAQBO, IntuitServicesType.QBO, reqValidator);
+                SeriLogger.log.Write(LogEventLevel.Verbose, context.BaseUrl);
                 context.IppConfiguration.MinorVersion.Qbo = "37";
                 DataService.DataService service = new DataService.DataService(context);
                 var compinfo= service.FindAll<CompanyInfo>(new CompanyInfo());
@@ -112,6 +128,9 @@ namespace Intuit.Ipp.Test
             }
             catch (IdsException ex)
             {
+                SeriLogger.log.Write(LogEventLevel.Verbose, ex.InnerException.ToString());
+                SeriLogger.log.Write(LogEventLevel.Verbose, ex.ErrorCode);
+                SeriLogger.log.Write(LogEventLevel.Verbose, ex.InnerExceptions[0].ToString());
                 if (ex.Message == "Unauthorized-401")
                 {
                     //oauthClient = new OAuth2Client(AuthorizationKeysQBO.clientIdQBO, AuthorizationKeysQBO.clientSecretQBO, AuthorizationKeysQBO.redirectUrl, AuthorizationKeysQBO.appEnvironment);

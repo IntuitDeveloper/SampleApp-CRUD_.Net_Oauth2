@@ -39,7 +39,7 @@ namespace Intuit.Ipp.Test
             //AuthorizationKeysQBO.tokenFilePath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))), "TokenStore.json");
 
             AuthorizationKeysQBO.tokenFilePath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "TokenStore.json");
-            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.tokenFilePath- {}", AuthorizationKeysQBO.tokenFilePath);
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.tokenFilePath- {tokenFilePath}", AuthorizationKeysQBO.tokenFilePath);
             var builder = new ConfigurationBuilder()
                  .SetBasePath(Directory.GetCurrentDirectory())
                  .AddJsonFile(path, optional: true, reloadOnChange: true)
@@ -133,9 +133,9 @@ namespace Intuit.Ipp.Test
             }
             catch (IdsException ex)
             {
-                SeriLogger.log.Write(LogEventLevel.Verbose, ex.InnerException.ToString());
-                SeriLogger.log.Write(LogEventLevel.Verbose, ex.ErrorCode);
-                SeriLogger.log.Write(LogEventLevel.Verbose, ex.InnerExceptions[0].ToString());
+                SeriLogger.log.Write(LogEventLevel.Verbose, ex.Message);
+                //SeriLogger.log.Write(LogEventLevel.Verbose, ex.ErrorCode);
+                //SeriLogger.log.Write(LogEventLevel.Verbose, ex.InnerExceptions[0].ToString());
                 if (ex.Message == "Unauthorized-401")
                 {
                     //oauthClient = new OAuth2Client(AuthorizationKeysQBO.clientIdQBO, AuthorizationKeysQBO.clientSecretQBO, AuthorizationKeysQBO.redirectUrl, AuthorizationKeysQBO.appEnvironment);

@@ -33,12 +33,13 @@ namespace Intuit.Ipp.Test
         static IConfigurationRoot builder;
         public Initializer(string path)
         {
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "InsideInitializer");
+
             
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             //AuthorizationKeysQBO.tokenFilePath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))), "TokenStore.json");
 
             AuthorizationKeysQBO.tokenFilePath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "TokenStore.json");
-
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.tokenFilePath- {}", AuthorizationKeysQBO.tokenFilePath);
             var builder = new ConfigurationBuilder()
                  .SetBasePath(Directory.GetCurrentDirectory())
                  .AddJsonFile(path, optional: true, reloadOnChange: true)
@@ -47,13 +48,17 @@ namespace Intuit.Ipp.Test
 
            
             AuthorizationKeysQBO.accessTokenQBO= builder.GetSection("Oauth2Keys")["AccessToken"];
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.accessTokenQBO- {accessToken}", AuthorizationKeysQBO.accessTokenQBO);
 
             AuthorizationKeysQBO.refreshTokenQBO = builder.GetSection("Oauth2Keys")["RefreshToken"];
             AuthorizationKeysQBO.clientIdQBO = builder.GetSection("Oauth2Keys")["ClientId"];
             AuthorizationKeysQBO.clientSecretQBO = builder.GetSection("Oauth2Keys")["ClientSecret"];
             AuthorizationKeysQBO.realmIdIAQBO = builder.GetSection("Oauth2Keys")["RealmId"];
             AuthorizationKeysQBO.redirectUrl = builder.GetSection("Oauth2Keys")["RedirectUrl"];
+
             AuthorizationKeysQBO.qboBaseUrl = builder.GetSection("Oauth2Keys")["QBOBaseUrl"];
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.qboBaseUrl- {qboBaseUrl}", AuthorizationKeysQBO.qboBaseUrl);
+
             AuthorizationKeysQBO.appEnvironment = builder.GetSection("Oauth2Keys")["Environment"];
             FileInfo fileinfo = new FileInfo(AuthorizationKeysQBO.tokenFilePath);
             string jsonFile = File.ReadAllText(fileinfo.FullName);
@@ -117,7 +122,7 @@ namespace Intuit.Ipp.Test
 
                 reqValidator = new OAuth2RequestValidator(AuthorizationKeysQBO.accessTokenQBO);
                 context = new ServiceContext(AuthorizationKeysQBO.realmIdIAQBO, IntuitServicesType.QBO, reqValidator);
-                SeriLogger.log.Write(LogEventLevel.Verbose, context.BaseUrl);
+                SeriLogger.log.Write(LogEventLevel.Verbose, "Base url from Context"+context.BaseUrl);
                 context.IppConfiguration.MinorVersion.Qbo = "37";
                 DataService.DataService service = new DataService.DataService(context);
                 var compinfo= service.FindAll<CompanyInfo>(new CompanyInfo());

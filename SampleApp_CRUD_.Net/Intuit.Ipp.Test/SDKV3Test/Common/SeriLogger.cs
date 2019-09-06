@@ -6,6 +6,8 @@ using Serilog;
 using Serilog.Sinks;
 using Serilog.Core;
 using Serilog.Events;
+using System.IO;
+using System.Diagnostics;
 
 namespace Intuit.Ipp.Test
 {
@@ -21,21 +23,35 @@ namespace Intuit.Ipp.Test
                 .WriteTo.Trace()
                 .WriteTo.Debug()
                 .WriteTo.Console()
+                .WriteTo.RollingFile(@"C:\Documents\Serilog_log\Log-{Date}.txt")
                 .CreateLogger();
 
             
             log.Information("Logger is initialized");
         }
+        private static Stream AddListener(string path)
+        {
+            string filename = path + "TraceLog-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+            Stream myFile = null;
+            if (File.Exists(filename))
+                myFile = new FileStream(filename, FileMode.Append);
+            else
+                myFile = new FileStream(filename, FileMode.Create);
+            TextWriterTraceListener myTextListener = new TextWriterTraceListener(myFile);
+            Trace.Listeners.Add(myTextListener);
+            Trace.AutoFlush = true;
+            return myFile;
+        }
 
 
-        
 
-        //public static void LogSeriLogMessage()
-        //{
-        //    log = new LoggerConfiguration()
-        //        .WriteTo.Trace()
-        //        .CreateLogger();
-        //    log.Write(LogEventLevel.Verbose, applog);
-        //}
-    }
+
+            //public static void LogSeriLogMessage()
+            //{
+            //    log = new LoggerConfiguration()
+            //        .WriteTo.Trace()
+            //        .CreateLogger();
+            //    log.Write(LogEventLevel.Verbose, applog);
+            //}
+        }
 }

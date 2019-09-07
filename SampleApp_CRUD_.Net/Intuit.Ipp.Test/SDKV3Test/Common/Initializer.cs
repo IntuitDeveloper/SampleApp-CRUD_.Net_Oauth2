@@ -48,6 +48,7 @@ namespace Intuit.Ipp.Test
 
             SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " Read access token from config- {accessToken}", builder.GetSection("Oauth2Keys")["AccessToken"]);
 
+            //check builder value  from appsettings named readenv=true, only then assign environment var
             AuthorizationKeysQBO.accessTokenQBO = Environment.GetEnvironmentVariable("INTUIT_ACCESSTOKEN");
             //AuthorizationKeysQBO.accessTokenQBO= builder.GetSection("Oauth2Keys")["AccessToken"];
             SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.accessTokenQBO- {accessToken}", AuthorizationKeysQBO.accessTokenQBO);
@@ -69,6 +70,7 @@ namespace Intuit.Ipp.Test
             SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.qboBaseUrl- {qboBaseUrl}", AuthorizationKeysQBO.qboBaseUrl);
 
             AuthorizationKeysQBO.appEnvironment = builder.GetSection("Oauth2Keys")["Environment"];
+            //assign a qbobaseurlprod nn qbobaseurl sandbox in travis env var
             //FileInfo fileinfo = new FileInfo(AuthorizationKeysQBO.tokenFilePath);
             //string jsonFile = File.ReadAllText(fileinfo.FullName);
             //var jObj = JObject.Parse(jsonFile);
@@ -102,28 +104,12 @@ namespace Intuit.Ipp.Test
         {
             
 
-            if (counter == 0)
-            {
+           
                 //if(tokenDict.Count == 0)
                 Initialize();
                 SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "Inside1");
                 SeriLogger.log.Information("Inside1usingInfolog");
-            }
-
-            else
-            {
-                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "Inside2");
-                //Load the second json file
-                FileInfo fileinfo = new FileInfo(AuthorizationKeysQBO.tokenFilePath);
-                string jsonFile = File.ReadAllText(fileinfo.FullName);
-                var jObj = JObject.Parse(jsonFile);
-                AuthorizationKeysQBO.accessTokenQBO = jObj["Oauth2Keys"]["AccessToken"].ToString();
-                AuthorizationKeysQBO.refreshTokenQBO = jObj["Oauth2Keys"]["RefreshToken"].ToString();
-                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "AuthorizationKeysQBO.accessTokenQBO"+ AuthorizationKeysQBO.accessTokenQBO);
-                SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "AuthorizationKeysQBO.refreshTokenQBO" + AuthorizationKeysQBO.refreshTokenQBO);
-
-            }
-
+           
             ServiceContext context = null;
             OAuth2RequestValidator reqValidator = null;
             try
@@ -131,7 +117,7 @@ namespace Intuit.Ipp.Test
 
                 reqValidator = new OAuth2RequestValidator(AuthorizationKeysQBO.accessTokenQBO);
                 context = new ServiceContext(AuthorizationKeysQBO.realmIdIAQBO, IntuitServicesType.QBO, reqValidator);
-                context.IppConfiguration.BaseUrl.Qbo = @"https://sandbox-quickbooks.api.intuit.com/";
+                //context.IppConfiguration.BaseUrl.Qbo = @"https://sandbox-quickbooks.api.intuit.com/";
                 SeriLogger.log.Write(LogEventLevel.Verbose, "Base url from Context" + context.IppConfiguration.BaseUrl.Qbo);
                 context.IppConfiguration.MinorVersion.Qbo = "37";
                 DataService.DataService service = new DataService.DataService(context);

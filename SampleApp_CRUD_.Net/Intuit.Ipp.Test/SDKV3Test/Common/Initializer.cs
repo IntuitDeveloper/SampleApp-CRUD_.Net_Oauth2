@@ -46,6 +46,7 @@ namespace Intuit.Ipp.Test
                  .AddEnvironmentVariables()
                  .Build();
 
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " Read access token from config- {accessToken}", builder.GetSection("Oauth2Keys")["AccessToken"]);
 
             AuthorizationKeysQBO.accessTokenQBO = Environment.GetEnvironmentVariable("INTUIT_ACCESSTOKEN");
             //AuthorizationKeysQBO.accessTokenQBO= builder.GetSection("Oauth2Keys")["AccessToken"];

@@ -39,8 +39,10 @@ namespace Intuit.Ipp.Test.Services.QBO
         [TestMethod]
         public void CompanyInfoFindAllTestUsingoAuth()
         {
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, "COmpanyInfo FindAll test started");
+
             //Making sure that at least one entity is already present
-           // CompanyInfoAddTestUsingoAuth();
+            // CompanyInfoAddTestUsingoAuth();
 
             //Retrieving the Bill using FindAll
             List<CompanyInfo> companyInfos = Helper.FindAll<CompanyInfo>(qboContextoAuth, new CompanyInfo(), 1, 500);

@@ -131,7 +131,7 @@ namespace Intuit.Ipp.Test
 
                 reqValidator = new OAuth2RequestValidator(AuthorizationKeysQBO.accessTokenQBO);
                 context = new ServiceContext(AuthorizationKeysQBO.realmIdIAQBO, IntuitServicesType.QBO, reqValidator);
-                context.IppConfiguration.BaseUrl = @"https://sandbox-quickbooks.api.intuit.com/";
+                context.IppConfiguration.BaseUrl.Qbo = @"https://sandbox-quickbooks.api.intuit.com/";
                 SeriLogger.log.Write(LogEventLevel.Verbose, "Base url from Context" + context.IppConfiguration.BaseUrl.Qbo);
                 context.IppConfiguration.MinorVersion.Qbo = "37";
                 DataService.DataService service = new DataService.DataService(context);

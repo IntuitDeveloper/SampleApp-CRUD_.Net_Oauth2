@@ -56,7 +56,7 @@ namespace Intuit.Ipp.Test
             AuthorizationKeysQBO.clientIdQBO = Environment.GetEnvironmentVariable("INTUIT_CLIENTID");
             AuthorizationKeysQBO.clientSecretQBO = Environment.GetEnvironmentVariable("INTUIT_CLIENTSECRET");
             AuthorizationKeysQBO.realmIdIAQBO = Environment.GetEnvironmentVariable("INTUIT_REALMID");
-            AuthorizationKeysQBO.redirectUrl = Environment.GetEnvironmentVariable("REDIRECTURL");
+            AuthorizationKeysQBO.redirectUrl = Environment.GetEnvironmentVariable("INTUIT_REDIRECTURL");
 
 
 

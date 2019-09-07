@@ -101,6 +101,7 @@
       <Compile Remove="Services\QBO\VendorType.cs" />
     </ItemGroup>
     <ItemGroup>
+       <PackageReference Include="IDGtest" Version="1.0.0" />
        <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />
@@ -121,50 +122,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Properties\" />
-    </ItemGroup>
-    <ItemGroup>
-      <Reference Include="Intuit.Ipp.Core">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Core.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.Data">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Data.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.DataService">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.DataService.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.Diagnostics">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Diagnostics.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.EntitlementService">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.EntitlementService.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.Exception">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Exception.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.GlobalTaxService">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.GlobalTaxService.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.OAuth2PlatformClient">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netcoreapp2.0\Intuit.Ipp.OAuth2PlatformClient.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.QueryFilter">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.QueryFilter.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.ReportService">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.ReportService.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.Retry">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Retry.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.Security">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Security.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.Utility">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.Utility.dll</HintPath>
-      </Reference>
-      <Reference Include="Intuit.Ipp.WebHooksService">
-        <HintPath>..\..\..\..\QuickBooks-V3-DotNET-SDK\IPPDotNetDevKitCSV3\Code\artifacts\bin\netstandard2.0\Intuit.Ipp.WebHooksService.dll</HintPath>
-      </Reference>
     </ItemGroup>
     <ItemGroup>
       <None Update="Appsettings.json">

@@ -38,7 +38,7 @@ namespace Intuit.Ipp.Test
             
             //AuthorizationKeysQBO.tokenFilePath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))), "TokenStore.json");
 
-            AuthorizationKeysQBO.tokenFilePath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "TokenStore.json");
+            //AuthorizationKeysQBO.tokenFilePath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "TokenStore.json");
             SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.tokenFilePath- {tokenFilePath}", AuthorizationKeysQBO.tokenFilePath);
             var builder = new ConfigurationBuilder()
                  .SetBasePath(Directory.GetCurrentDirectory())
@@ -46,28 +46,36 @@ namespace Intuit.Ipp.Test
                  .AddEnvironmentVariables()
                  .Build();
 
-           
-            AuthorizationKeysQBO.accessTokenQBO= builder.GetSection("Oauth2Keys")["AccessToken"];
-            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.accessTokenQBO- {accessToken}", AuthorizationKeysQBO.accessTokenQBO);
 
-            AuthorizationKeysQBO.refreshTokenQBO = builder.GetSection("Oauth2Keys")["RefreshToken"];
-            AuthorizationKeysQBO.clientIdQBO = builder.GetSection("Oauth2Keys")["ClientId"];
-            AuthorizationKeysQBO.clientSecretQBO = builder.GetSection("Oauth2Keys")["ClientSecret"];
-            AuthorizationKeysQBO.realmIdIAQBO = builder.GetSection("Oauth2Keys")["RealmId"];
-            AuthorizationKeysQBO.redirectUrl = builder.GetSection("Oauth2Keys")["RedirectUrl"];
+            AuthorizationKeysQBO.accessTokenQBO = Environment.GetEnvironmentVariable("INTUIT_ACCESSTOKEN");
+            //AuthorizationKeysQBO.accessTokenQBO= builder.GetSection("Oauth2Keys")["AccessToken"];
+            SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.accessTokenQBO- {accessToken}", AuthorizationKeysQBO.accessTokenQBO);
+            AuthorizationKeysQBO.refreshTokenQBO = Environment.GetEnvironmentVariable("INTUIT_REFRESHTOKEN");
+            AuthorizationKeysQBO.clientIdQBO = Environment.GetEnvironmentVariable("INTUIT_CLIENTID");
+            AuthorizationKeysQBO.clientSecretQBO = Environment.GetEnvironmentVariable("INTUIT_CLIENTSECRET");
+            AuthorizationKeysQBO.realmIdIAQBO = Environment.GetEnvironmentVariable("INTUIT_REALMID");
+            AuthorizationKeysQBO.redirectUrl = Environment.GetEnvironmentVariable("REDIRECTURL");
+
+
+
+            //AuthorizationKeysQBO.refreshTokenQBO = builder.GetSection("Oauth2Keys")["RefreshToken"];
+            //AuthorizationKeysQBO.clientIdQBO = builder.GetSection("Oauth2Keys")["ClientId"];
+            //AuthorizationKeysQBO.clientSecretQBO = builder.GetSection("Oauth2Keys")["ClientSecret"];
+            //AuthorizationKeysQBO.realmIdIAQBO = builder.GetSection("Oauth2Keys")["RealmId"];
+            //AuthorizationKeysQBO.redirectUrl = builder.GetSection("Oauth2Keys")["RedirectUrl"];
 
             AuthorizationKeysQBO.qboBaseUrl = builder.GetSection("Oauth2Keys")["QBOBaseUrl"];
             SeriLogger.log.Write(Serilog.Events.LogEventLevel.Verbose, " AuthorizationKeysQBO.qboBaseUrl- {qboBaseUrl}", AuthorizationKeysQBO.qboBaseUrl);
 
             AuthorizationKeysQBO.appEnvironment = builder.GetSection("Oauth2Keys")["Environment"];
-            FileInfo fileinfo = new FileInfo(AuthorizationKeysQBO.tokenFilePath);
-            string jsonFile = File.ReadAllText(fileinfo.FullName);
-            var jObj = JObject.Parse(jsonFile);
-            jObj["Oauth2Keys"]["AccessToken"] = AuthorizationKeysQBO.accessTokenQBO;
-            jObj["Oauth2Keys"]["RefreshToken"] = AuthorizationKeysQBO.refreshTokenQBO;
+            //FileInfo fileinfo = new FileInfo(AuthorizationKeysQBO.tokenFilePath);
+            //string jsonFile = File.ReadAllText(fileinfo.FullName);
+            //var jObj = JObject.Parse(jsonFile);
+            //jObj["Oauth2Keys"]["AccessToken"] = AuthorizationKeysQBO.accessTokenQBO;
+            //jObj["Oauth2Keys"]["RefreshToken"] = AuthorizationKeysQBO.refreshTokenQBO;
 
-            string output = JsonConvert.SerializeObject(jObj, Formatting.Indented);
-            File.WriteAllText(fileinfo.FullName, output);
+            //string output = JsonConvert.SerializeObject(jObj, Formatting.Indented);
+            //File.WriteAllText(fileinfo.FullName, output);
 
             counter++;
 

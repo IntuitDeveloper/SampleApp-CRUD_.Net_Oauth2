@@ -1,4 +1,4 @@
-[![Sample Banner](views/Sample.png)][ss1]
+[![Rate your Sample](views/Ratesample.png)][ss1][![Yes](views/Thumbup.png)][ss2][![No](views/Thumbdown.png)][ss3]
 
 # SampleApp-CRUD-.Net for Oauth2 apps
 CRUD sample for V3 .Net SDK (This sample app has NO UI to show QBO APi calls request or response. It has UI for just the Oauth flow and then please run it in debug mode after enabling logging on Test class to understand how the api calls are made.)
@@ -56,6 +56,8 @@ Notes:
 2. Before running AttachableUpload sample, update the path of the pdf that you wish to upload to point to your local directory. 
 3. This app uses new OAuth2Client. If you want to refer the other way to use standalone OAuth2 clients, download v1.0 from Release tab
 
-[ss1]: https://help.developer.intuit.com/s/samplefeedback?cid=9010&repoName=SampleApp-CRUD-.Net_Oauth2
+[ss1]: #
+[ss2]: https://customersurveys.intuit.com/jfe/form/SV_9LWgJBcyy3NAwHc?check=Yes&checkpoint=SampleApp-CRUD-.Net_Oauth2&pageUrl=github
+[ss3]: https://customersurveys.intuit.com/jfe/form/SV_9LWgJBcyy3NAwHc?check=No&checkpoint=SampleApp-CRUD-.Net_Oauth2&pageUrl=github
 
 Sample for printing report on UI is available here- https://gist.github.com/IntuitDeveloperRelations/10672073
